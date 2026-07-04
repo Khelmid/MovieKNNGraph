@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Entornos virtuales
+venv/
+.env
+
+# Node
+node_modules/
+
+# React
+dist/
+build/
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Sistema
+Thumbs.db
+.DS_Store
