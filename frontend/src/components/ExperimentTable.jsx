@@ -21,9 +21,9 @@ function ExperimentTable() {
 
     return (
 
-        <div className="section">
+        <section className="section experiment-table-section">
 
-            <h2>Experimental Evaluation</h2>
+            <h2>Tabla de métricas experimentales para diferentes valores de K </h2>
 
             <table className="experiment-table">
 
@@ -32,12 +32,12 @@ function ExperimentTable() {
                     <tr>
 
                         <th>K</th>
-                        <th>Edges</th>
-                        <th>Density</th>
-                        <th>Avg Degree</th>
-                        <th>Clustering</th>
-                        <th>Build Time (s)</th>
-                        <th>Search Time (s)</th>
+                        <th>Aristas</th>
+                        <th>Densidad</th>
+                        <th>Grado promedio</th>
+                        <th>Coef. de clustering</th>
+                        <th>Tiempo de construcción (s)</th>
+                        <th>Tiempo de búsqueda (s)</th>
 
                     </tr>
 
@@ -50,12 +50,18 @@ function ExperimentTable() {
                         <tr key={row.K}>
 
                             <td>{row.K}</td>
-                            <td>{row.Aristas}</td>
-                            <td>{row.Densidad}</td>
-                            <td>{row["Grado promedio"]}</td>
-                            <td>{row.Clustering}</td>
-                            <td>{row["Tiempo construcción (s)"]}</td>
-                            <td>{row["Tiempo búsqueda (s)"]}</td>
+
+                            <td>{Number(row.Aristas).toLocaleString()}</td>
+
+                            <td>{Number(row.Densidad).toFixed(4)}</td>
+
+                            <td>{Number(row["Grado promedio"]).toFixed(2)}</td>
+
+                            <td>{Number(row.Clustering).toFixed(4)}</td>
+
+                            <td>{Number(row["Tiempo construcción (s)"]).toFixed(6)}</td>
+
+                            <td>{Number(row["Tiempo búsqueda (s)"]).toFixed(6)}</td>
 
                         </tr>
 
@@ -65,7 +71,7 @@ function ExperimentTable() {
 
             </table>
 
-        </div>
+        </section>
 
     );
 

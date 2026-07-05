@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getGraphStats } from "../services/graphService";
 
-function GraphStats({ k }) {
+function GraphStats({ k, showStats, setShowStats }) {
 
     const [stats, setStats] = useState(null);
 
@@ -10,7 +10,6 @@ function GraphStats({ k }) {
         async function cargar() {
 
             const data = await getGraphStats(k);
-
             setStats(data);
 
         }
@@ -21,48 +20,89 @@ function GraphStats({ k }) {
 
     if (!stats) return null;
 
+    const N = stats.nodes;
+    const E = stats.edges;
+
+    const averageDegree = Number(stats.average_degree).toFixed(2);
+    const density = Number(stats.density).toFixed(4);
+    const clustering = Number(stats.average_clustering).toFixed(4);
+
     const metrics = [
 
         {
             icon: "🎬",
-            title: "Movies",
-            value: stats.nodes,
-            description: "Total nodes"
+            title: "Número de Películas (N)",
+            value: N,
+            formula: "N = |V|",
+            description: "Número total de vértices (películas) del grafo.",
+            values: [
+                `N = ${N}`,
+                `|V| = ${N}`
+            ]
         },
 
         {
             icon: "🔗",
-            title: "Edges",
-            value: stats.edges,
-            description: "Graph connections"
+            title: "Número de Aristas (E)",
+            value: E,
+            formula: "E = |E|",
+            description: "Número total de conexiones entre películas.",
+            values: [
+                `E = ${E}`,
+                `|E| = ${E}`,
+                "Cada arista conecta dos películas."
+            ]
         },
 
         {
             icon: "📈",
-            title: "Average Degree",
-            value: Number(stats.average_degree).toFixed(2),
-            description: "Average neighbors"
+            title: "Grado Promedio (k̄)",
+            value: averageDegree,
+            formula: "k̄ = 2E / N",
+            description: "Promedio de conexiones por película.",
+            values: [
+                `E = ${E}`,
+                `N = ${N}`,
+                `k̄ = (2 × ${E}) / ${N}`,
+                `k̄ = ${averageDegree}`
+            ]
         },
 
         {
             icon: "🌐",
-            title: "Density",
-            value: Number(stats.density).toFixed(4),
-            description: "Graph density"
+            title: "Densidad (D)",
+            value: density,
+            formula: "D = 2E / N(N−1)",
+            description: "Proporción de conexiones existentes respecto al total posible.",
+            values: [
+                `E = ${E}`,
+                `N = ${N}`,
+                `D = (2 × ${E}) / (${N} × ${N - 1})`,
+                `D = ${density}`
+            ]
         },
 
         {
             icon: "🧩",
-            title: "Components",
+            title: "Componentes Conexas",
             value: stats.connected_components,
-            description: "Connected components"
+            formula: "CC(G)",
+            description: "Número de componentes conexas del grafo.",
+            values: [
+                `CC(G) = ${stats.connected_components}`
+            ]
         },
 
         {
             icon: "🔺",
-            title: "Clustering",
-            value: Number(stats.average_clustering).toFixed(4),
-            description: "Average clustering"
+            title: "Coeficiente de Agrupamiento (C)",
+            value: clustering,
+            formula: "C = (1/N) ΣCi",
+            description: "Promedio del coeficiente de clustering local.",
+            values: [
+                `N = ${N}`,
+                `C = ${clustering}`
+            ]
         }
 
     ];
@@ -71,62 +111,103 @@ function GraphStats({ k }) {
 
         <section className="graph-stats">
 
-            <div className="section-header">
+            {showStats ? (
 
-                <h2>Graph Statistics</h2>
+                <>
 
-                <span className="k-badge">
-                    K = {k}
-                </span>
+                    <div className="section-header">
 
-            </div>
+                        <h2>
+                            Estadísticas del Grafo
+                        </h2>
 
-            <div className="stats-grid">
+                        <div className="stats-actions">
 
-                {
+                            <span className="k-badge">
+                                K = {k}
+                            </span>
 
-                    metrics.map((item) => (
+                            <button
+                                className="toggle-stats-btn"
+                                onClick={() => setShowStats(false)}
+                                title="Ocultar estadísticas"
+                            >
+                                ◀
+                            </button>
 
-                        <article
-                            key={item.title}
-                            className="stat-card"
-                        >
+                        </div>
 
-                            <div className="stat-icon">
+                    </div>
 
-                                {item.icon}
+                    <div className="stats-grid">
 
-                            </div>
+                        {metrics.map((item) => (
 
-                            <div className="stat-content">
+                            <article
+                                key={item.title}
+                                className="stat-card"
+                            >
 
-                                <h4>
+                                <div className="stat-icon">
+                                    {item.icon}
+                                </div>
 
-                                    {item.title}
+                                <div className="stat-content">
 
-                                </h4>
+                                    <h4>{item.title}</h4>
 
-                                <div className="stat-value">
+                                    <div className="stat-value">
+                                        {item.value}
+                                    </div>
 
-                                    {item.value}
+                                    <div className="formula-box">
+                                        {item.formula}
+                                    </div>
+
+                                    <p className="stat-description">
+                                        {item.description}
+                                    </p>
+
+                                    <div className="formula-values">
+
+                                        <strong>
+                                            Valores:
+                                        </strong>
+
+                                        {item.values.map((value, index) => (
+
+                                            <div
+                                                key={index}
+                                                className="formula-line"
+                                            >
+                                                • {value}
+                                            </div>
+
+                                        ))}
+
+                                    </div>
 
                                 </div>
 
-                                <p>
+                            </article>
 
-                                    {item.description}
+                        ))}
 
-                                </p>
+                    </div>
 
-                            </div>
+                </>
 
-                        </article>
+            ) : (
 
-                    ))
+                <button
+                    className="toggle-stats-btn"
+                    onClick={() => setShowStats(true)}
+                    title="Mostrar estadísticas"
+                >
+                    ▶
+                </button>
 
-                }
-
-            </div>
+            )}
 
         </section>
 

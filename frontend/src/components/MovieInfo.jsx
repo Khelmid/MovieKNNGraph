@@ -1,4 +1,4 @@
-function MovieInfo({ movie }) {
+function MovieInfo({ movie, k, setK }) {
 
     if (!movie) return null;
 
@@ -12,94 +12,133 @@ function MovieInfo({ movie }) {
 
             <div className="movie-header">
 
-                <div>
+                <h1>{movie.movie}</h1>
 
-                    <h1>{movie.movie}</h1>
+                <div className="movie-genres">
 
-                    <p className="movie-year">
-                        {movie.year}
+                    {movie.genre.split("|").map((genre) => (
+
+                        <span
+                            key={genre}
+                            className="genre-tag"
+                        >
+                            • {genre}
+                        </span>
+
+                    ))}
+
+                </div>
+
+            </div>
+
+            {/* ====================================== */}
+            {/* CONTENIDO */}
+            {/* ====================================== */}
+
+            <div className="movie-content">
+
+                {/* ================================= */}
+                {/* INFORMACIÓN */}
+                {/* ================================= */}
+
+                <div className="movie-details">
+
+                    <h3>
+                        Información de la película
+                    </h3>
+
+                    <div className="movie-data">
+
+                        <div className="data-row">
+                            <span>Año</span>
+                            <strong>{movie.year}</strong>
+                        </div>
+
+                        <div className="data-row">
+                            <span>Duración</span>
+                            <strong>{movie.duration} min</strong>
+                        </div>
+
+                        <div className="data-row">
+                            <span>Votos</span>
+                            <strong>{movie.votes.toLocaleString()}</strong>
+                        </div>
+
+                        <div className="data-row">
+                            <span>Popularidad</span>
+                            <strong>
+                                {Number(movie.popularity).toFixed(2)}
+                            </strong>
+                        </div>
+
+                        <div className="data-row">
+                            <span>Calificación</span>
+                            <strong>
+                                ⭐ {movie.rating}/10
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <div className="movie-synopsis">
+
+                        <h3>Sinopsis</h3>
+
+                        <p>
+
+                            {movie.synopsis?.trim()
+
+                                ? movie.synopsis
+
+                                : "No hay sinopsis disponible para esta película."}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {/* ================================= */}
+                {/* KNN */}
+                {/* ================================= */}
+
+                <aside className="movie-knn">
+
+                    <h3>
+                        Configuración KNN
+                    </h3>
+
+                    <p>
+                        Seleccione el valor de <strong>K</strong>
                     </p>
 
-                </div>
+                    <div className="k-buttons">
 
-                <div className="movie-score">
+                        {[5, 10, 15, 20].map((value) => (
 
-                    <span>⭐</span>
+                            <button
 
-                    <strong>{movie.rating}</strong>
+                                key={value}
 
-                    <small>/10</small>
+                                className={
+                                    value === k
+                                        ? "k-button active"
+                                        : "k-button"
+                                }
 
-                </div>
+                                onClick={() => setK(value)}
 
-            </div>
+                            >
 
-            {/* ====================================== */}
-            {/* GÉNEROS */}
-            {/* ====================================== */}
+                                K = {value}
 
-            <div className="movie-genres">
+                            </button>
 
-                {movie.genre.split("|").map((genre) => (
+                        ))}
 
-                    <span
-                        key={genre}
-                        className="genre-tag"
-                    >
-                        {genre}
-                    </span>
+                    </div>
 
-                ))}
-
-            </div>
-
-            {/* ====================================== */}
-            {/* MÉTRICAS */}
-            {/* ====================================== */}
-
-            <div className="movie-metrics">
-
-                <div className="metric">
-
-                    <span>Duration</span>
-
-                    <strong>{movie.duration} min</strong>
-
-                </div>
-
-                <div className="metric">
-
-                    <span>Votes</span>
-
-                    <strong>{movie.votes.toLocaleString()}</strong>
-
-                </div>
-
-                <div className="metric">
-
-                    <span>Popularity</span>
-
-                    <strong>
-                        {Number(movie.popularity).toFixed(2)}
-                    </strong>
-
-                </div>
-
-            </div>
-
-            {/* ====================================== */}
-            {/* SINOPSIS */}
-            {/* ====================================== */}
-
-            <div className="movie-synopsis">
-
-                <h3>Synopsis</h3>
-
-                <p>
-                    {movie.synopsis?.trim()
-                        ? movie.synopsis
-                        : "No synopsis available for this movie."}
-                </p>
+                </aside>
 
             </div>
 

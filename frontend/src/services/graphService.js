@@ -29,6 +29,20 @@ export async function getGraph(movie, k = 5) {
 }
 
 // =========================================
+// MATRIZ DE SIMILITUD
+// =========================================
+
+export async function getSimilarityMatrix(movie, k = 5) {
+
+    const response = await fetch(
+        `${API}/similarity?movie=${encodeURIComponent(movie)}&k=${k}`
+    );
+
+    return await response.json();
+
+}
+
+// =========================================
 // RESULTADOS EXPERIMENTALES
 // =========================================
 

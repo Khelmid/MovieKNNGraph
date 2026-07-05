@@ -11,7 +11,7 @@ function MovieGraph({ movie, k }) {
 
     const [size, setSize] = useState({
         width: 900,
-        height: 520
+        height: 650
     });
 
     const [graph, setGraph] = useState({
@@ -35,7 +35,7 @@ function MovieGraph({ movie, k }) {
 
                 width: containerRef.current.offsetWidth,
 
-                height: 520
+                height: 650
 
             });
 
@@ -95,19 +95,19 @@ function MovieGraph({ movie, k }) {
 
         if (!fgRef.current) return;
 
-        fgRef.current.d3Force("charge").strength(-550);
+        fgRef.current.d3Force("charge").strength(-900);
 
-        fgRef.current.d3Force("link").distance(120);
+        fgRef.current.d3Force("link").distance(170);
 
-        fgRef.current.d3Force("center").strength(0.15);
+        fgRef.current.d3Force("center").strength(0.25);
 
         fgRef.current.d3ReheatSimulation();
 
         setTimeout(() => {
 
-            fgRef.current.zoomToFit(700, 70);
+            fgRef.current.zoomToFit(1200, 120);
 
-        }, 700);
+        }, 900);
 
     }, [graph]);
 
@@ -125,10 +125,11 @@ function MovieGraph({ movie, k }) {
                         style={{
                             textAlign: "center",
                             color: "#94a3b8",
-                            paddingTop: "230px"
+                            paddingTop: "300px",
+                            fontSize: "1.1rem"
                         }}
                     >
-                        Loading graph...
+                        Cargando grafo...
                     </p>
 
                 </div>
@@ -160,23 +161,26 @@ function MovieGraph({ movie, k }) {
 
                     backgroundColor="#111827"
 
-                    cooldownTicks={300}
+                    cooldownTicks={400}
 
                     autoPauseRedraw={false}
 
-                    nodeLabel={(node) => `Movie: ${node.label}
+                    nodeLabel={(node) => `Película: ${node.label}
 
-Genre: ${node.genre}
+Género: ${node.genre}
 
-Year: ${node.year}
+Año: ${node.year}
 
-IMDb Rating: ⭐ ${node.rating}`}
+IMDb: ⭐ ${node.rating}`}
 
                     nodeCanvasObject={(node, ctx) => {
 
                         const isSelected = node.group === 1;
 
-                        const radius = isSelected ? 22 : 12;
+                        const radius = isSelected ? 28 : 15;
+
+                        ctx.shadowColor = "rgba(0,0,0,.35)";
+                        ctx.shadowBlur = 8;
 
                         ctx.beginPath();
 
@@ -195,36 +199,39 @@ IMDb Rating: ⭐ ${node.rating}`}
                         ctx.fill();
 
                         ctx.strokeStyle = "#ffffff";
-                        ctx.lineWidth = 2;
+                        ctx.lineWidth = 3;
                         ctx.stroke();
 
+                        ctx.shadowBlur = 0;
+
                         ctx.fillStyle = "#ffffff";
+
                         ctx.textAlign = "center";
 
                         ctx.font = isSelected
-                            ? "bold 15px Arial"
-                            : "11px Arial";
+                            ? "bold 17px Inter"
+                            : "12px Inter";
 
                         const text = isSelected
                             ? node.label
-                            : node.label.length > 16
-                                ? node.label.substring(0, 16) + "..."
+                            : node.label.length > 22
+                                ? node.label.substring(0, 22) + "..."
                                 : node.label;
 
                         ctx.fillText(
                             text,
                             node.x,
-                            node.y + radius + 16
+                            node.y + radius + 18
                         );
 
                     }}
 
                     linkColor={(link) => {
 
-                        if (link.weight >= 0.60)
+                        if (link.weight >= 0.80)
                             return "#22c55e";
 
-                        if (link.weight >= 0.55)
+                        if (link.weight >= 0.60)
                             return "#f59e0b";
 
                         return "#64748b";
@@ -232,12 +239,8 @@ IMDb Rating: ⭐ ${node.rating}`}
                     }}
 
                     linkWidth={(link) =>
-                        Math.max(2.5, link.weight * 6)
+                        Math.max(2, link.weight * 8)
                     }
-
-                    linkDirectionalParticles={1}
-
-                    linkDirectionalParticleSpeed={0.003}
 
                     enableNodeDrag
 

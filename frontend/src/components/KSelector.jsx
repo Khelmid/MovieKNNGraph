@@ -8,10 +8,10 @@ function KSelector({ selectedK, onChange }) {
 
             <div className="k-header">
 
-                <h2>KNN Configuration</h2>
+                <h2>Configuración del Grafo KNN</h2>
 
                 <p>
-                    Select the value of <strong>K</strong> used to build the similarity graph.
+                    Seleccione el valor de <strong>K</strong>  para construir el grafo de similitud.
                 </p>
 
             </div>

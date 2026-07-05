@@ -107,35 +107,35 @@ function App() {
                 loading={loading}
             />
 
-            {/* Selector de K */}
+            {/* Mostrar el selector solo antes de buscar */}
 
-            <KSelector
-                selectedK={selectedK}
-                onChange={setSelectedK}
-            />
+            {!movie && (
+
+                <KSelector
+                    selectedK={selectedK}
+                    onChange={setSelectedK}
+                />
+
+            )}
 
             {/* Dashboard */}
 
-            {
+            {movie && (
 
-                movie && (
+                <>
 
-                    <>
+                    <Dashboard
+                        movie={movie}
+                        recommendations={recommendations}
+                        selectedK={selectedK}
+                        setSelectedK={setSelectedK}
+                    />
 
-                        <Dashboard
-                            movie={movie}
-                            recommendations={recommendations}
-                            selectedK={selectedK}
-                        />
+                    <ExperimentTable />
 
-                        <ExperimentTable />
+                </>
 
-                    </>
-                    
-
-                )
-
-            }
+            )}
 
         </div>
 

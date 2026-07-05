@@ -8,12 +8,12 @@ function Header() {
     </h1>
 
     <p className="subtitle">
-        Basado en <strong>Embeddings Semánticos</strong> y
+         <strong> Basado en Embeddings Semánticos y</strong> 
         <strong> Grafos K-Nearest Neighbors (KNN)</strong>
     </p>
 
     <div className="project-badge">
-        Estructura de Datos
+        Curso: Estructura de Datos
     </div>
 
 </header>

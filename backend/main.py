@@ -6,6 +6,9 @@ from backend.graph import (
     obtener_estadisticas,
     obtener_subgrafo
 )
+from backend.similarity import (
+    obtener_matriz_similitud
+)
 from backend.experiments import obtener_resultados
 
 app = FastAPI(
@@ -74,6 +77,24 @@ def graph_stats(k: int = 5):
 def graph(movie: str, k: int = 5):
 
     resultado = obtener_subgrafo(movie, k)
+
+    if resultado is None:
+
+        return {
+            "error": "Película no encontrada"
+        }
+
+    return resultado
+
+
+# ==========================================================
+# MATRIZ DE SIMILITUD
+# ==========================================================
+
+@app.get("/similarity")
+def similarity(movie: str, k: int = 5):
+
+    resultado = obtener_matriz_similitud(movie, k)
 
     if resultado is None:
 

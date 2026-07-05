@@ -65,6 +65,9 @@ print("Modelo cargado.")
 # GENERAR EMBEDDINGS
 # ==========================================================
 
+
+
+
 print("\nGenerando embeddings...")
 
 inicio = time.perf_counter()

@@ -1,8 +1,11 @@
+import { useState } from "react";
+
 import MovieInfo from "./MovieInfo";
 import MovieGraph from "./MovieGraph";
 import GraphStats from "./GraphStats";
 import RecommendationList from "./RecommendationList";
 import ExperimentCharts from "./ExperimentCharts";
+import SimilarityMatrix from "./SimilarityMatrix";
 
 function Dashboard({
 
@@ -10,9 +13,13 @@ function Dashboard({
 
     recommendations,
 
-    selectedK
+    selectedK,
+
+    setSelectedK
 
 }) {
+
+    const [showStats, setShowStats] = useState(true);
 
     if (!movie) return null;
 
@@ -26,6 +33,8 @@ function Dashboard({
 
             <MovieInfo
                 movie={movie}
+                k={selectedK}
+                setK={setSelectedK}
             />
 
             {/* ====================================== */}
@@ -34,7 +43,7 @@ function Dashboard({
 
             <section className="dashboard-graph">
 
-                <div className="graph-layout">
+                <div className={`graph-layout ${!showStats ? "collapsed" : ""}`}>
 
                     {/* ============================= */}
                     {/* GRAFO */}
@@ -47,11 +56,13 @@ function Dashboard({
                             <div>
 
                                 <h2>
-                                    KNN Graph Visualization
+                                    Visualización del Grafo KNN
                                 </h2>
 
                                 <p>
-                                    Semantic similarity graph using <strong>K = {selectedK}</strong>.
+                                    Grafo de similitud semántica construido utilizando
+                                    los <strong>{selectedK}</strong> vecinos más cercanos
+                                    para cada película.
                                 </p>
 
                             </div>
@@ -63,16 +74,23 @@ function Dashboard({
                             k={selectedK}
                         />
 
+                        <SimilarityMatrix
+                            movie={movie}
+                            k={selectedK}
+                        />
+
                     </div>
 
                     {/* ============================= */}
                     {/* ESTADÍSTICAS */}
                     {/* ============================= */}
 
-                    <aside className="graph-right">
+                    <aside className={`graph-right ${!showStats ? "collapsed" : ""}`}>
 
                         <GraphStats
                             k={selectedK}
+                            showStats={showStats}
+                            setShowStats={setShowStats}
                         />
 
                     </aside>
@@ -97,7 +115,7 @@ function Dashboard({
             {/* EVALUACIÓN EXPERIMENTAL */}
             {/* ====================================== */}
 
-            
+            <ExperimentCharts />
 
         </section>
 

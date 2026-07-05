@@ -35,25 +35,25 @@ function ExperimentCharts() {
 
         <section className="experiment-charts">
 
-            <h2>Experimental Evaluation</h2>
+            <h2>Evaluación Experimental</h2>
 
             <div className="charts-grid">
 
-                {/* =============================== */}
-                {/* CONNECTIVITY */}
-                {/* =============================== */}
+                {/* ===================================== */}
+                {/* NÚMERO DE ARISTAS */}
+                {/* ===================================== */}
 
                 <div className="chart-card">
 
-                    <h3>Connectivity</h3>
+                    <h3>Número de Aristas</h3>
 
-                    <ResponsiveContainer width="100%" height={300}>
+                    <ResponsiveContainer width="100%" height={220}>
 
                         <LineChart data={data}>
 
                             <CartesianGrid strokeDasharray="3 3" />
 
-                            <XAxis dataKey="k" />
+                            <XAxis dataKey="K" />
 
                             <YAxis />
 
@@ -63,41 +63,37 @@ function ExperimentCharts() {
 
                             <Line
                                 type="monotone"
-                                dataKey="average_degree"
-                                stroke="#3b82f6"
+                                dataKey="Aristas"
+                                stroke="#8b5cf6"
                                 strokeWidth={3}
-                                name="Average Degree"
-                            />
-
-                            <Line
-                                type="monotone"
-                                dataKey="density"
-                                stroke="#22c55e"
-                                strokeWidth={3}
-                                name="Density"
+                                name="Aristas"
                             />
 
                         </LineChart>
 
                     </ResponsiveContainer>
 
+                    <p className="chart-description">
+                        Número total de conexiones generadas en el grafo para cada valor de K.
+                    </p>
+
                 </div>
 
-                {/* =============================== */}
-                {/* COMMUNITY */}
-                {/* =============================== */}
+                {/* ===================================== */}
+                {/* CLUSTERING */}
+                {/* ===================================== */}
 
                 <div className="chart-card">
 
-                    <h3>Community Structure</h3>
+                    <h3>Coeficiente de Clustering</h3>
 
-                    <ResponsiveContainer width="100%" height={300}>
+                    <ResponsiveContainer width="100%" height={220}>
 
                         <LineChart data={data}>
 
                             <CartesianGrid strokeDasharray="3 3" />
 
-                            <XAxis dataKey="k" />
+                            <XAxis dataKey="K" />
 
                             <YAxis />
 
@@ -107,7 +103,7 @@ function ExperimentCharts() {
 
                             <Line
                                 type="monotone"
-                                dataKey="average_clustering"
+                                dataKey="Clustering"
                                 stroke="#f59e0b"
                                 strokeWidth={3}
                                 name="Clustering"
@@ -117,23 +113,27 @@ function ExperimentCharts() {
 
                     </ResponsiveContainer>
 
+                    <p className="chart-description">
+                        Evalúa el nivel de agrupamiento entre películas similares.
+                    </p>
+
                 </div>
 
-                {/* =============================== */}
-                {/* GRAPH SIZE */}
-                {/* =============================== */}
+                {/* ===================================== */}
+                {/* DENSIDAD */}
+                {/* ===================================== */}
 
                 <div className="chart-card">
 
-                    <h3>Graph Size</h3>
+                    <h3>Densidad del Grafo</h3>
 
-                    <ResponsiveContainer width="100%" height={300}>
+                    <ResponsiveContainer width="100%" height={220}>
 
                         <LineChart data={data}>
 
                             <CartesianGrid strokeDasharray="3 3" />
 
-                            <XAxis dataKey="k" />
+                            <XAxis dataKey="K" />
 
                             <YAxis />
 
@@ -143,33 +143,37 @@ function ExperimentCharts() {
 
                             <Line
                                 type="monotone"
-                                dataKey="edges"
-                                stroke="#8b5cf6"
+                                dataKey="Densidad"
+                                stroke="#22c55e"
                                 strokeWidth={3}
-                                name="Edges"
+                                name="Densidad"
                             />
 
                         </LineChart>
 
                     </ResponsiveContainer>
 
+                    <p className="chart-description">
+                        Proporción de conexiones existentes respecto al total posible.
+                    </p>
+
                 </div>
 
-                {/* =============================== */}
-                {/* PERFORMANCE */}
-                {/* =============================== */}
+                {/* ===================================== */}
+                {/* GRADO PROMEDIO */}
+                {/* ===================================== */}
 
                 <div className="chart-card">
 
-                    <h3>Computational Performance</h3>
+                    <h3>Grado Promedio</h3>
 
-                    <ResponsiveContainer width="100%" height={300}>
+                    <ResponsiveContainer width="100%" height={220}>
 
                         <LineChart data={data}>
 
                             <CartesianGrid strokeDasharray="3 3" />
 
-                            <XAxis dataKey="k" />
+                            <XAxis dataKey="K" />
 
                             <YAxis />
 
@@ -179,23 +183,99 @@ function ExperimentCharts() {
 
                             <Line
                                 type="monotone"
-                                dataKey="build_time"
+                                dataKey="Grado promedio"
+                                stroke="#3b82f6"
+                                strokeWidth={3}
+                                name="Grado Promedio"
+                            />
+
+                        </LineChart>
+
+                    </ResponsiveContainer>
+
+                    <p className="chart-description">
+                        Número promedio de conexiones por película.
+                    </p>
+
+                </div>
+
+                {/* ===================================== */}
+                {/* TIEMPO DE CONSTRUCCIÓN */}
+                {/* ===================================== */}
+
+                <div className="chart-card">
+
+                    <h3>Tiempo de Construcción</h3>
+
+                    <ResponsiveContainer width="100%" height={220}>
+
+                        <LineChart data={data}>
+
+                            <CartesianGrid strokeDasharray="3 3" />
+
+                            <XAxis dataKey="K" />
+
+                            <YAxis />
+
+                            <Tooltip />
+
+                            <Legend />
+
+                            <Line
+                                type="monotone"
+                                dataKey="Tiempo construcción (s)"
                                 stroke="#ef4444"
                                 strokeWidth={3}
-                                name="Build Time"
-                            />
-
-                            <Line
-                                type="monotone"
-                                dataKey="search_time"
-                                stroke="#06b6d4"
-                                strokeWidth={3}
-                                name="Search Time"
+                                name="Construcción"
                             />
 
                         </LineChart>
 
                     </ResponsiveContainer>
+
+                    <p className="chart-description">
+                        Tiempo requerido para construir el índice KNN.
+                    </p>
+
+                </div>
+
+                {/* ===================================== */}
+                {/* TIEMPO DE BÚSQUEDA */}
+                {/* ===================================== */}
+
+                <div className="chart-card">
+
+                    <h3>Tiempo de Búsqueda</h3>
+
+                    <ResponsiveContainer width="100%" height={220}>
+
+                        <LineChart data={data}>
+
+                            <CartesianGrid strokeDasharray="3 3" />
+
+                            <XAxis dataKey="K" />
+
+                            <YAxis />
+
+                            <Tooltip />
+
+                            <Legend />
+
+                            <Line
+                                type="monotone"
+                                dataKey="Tiempo búsqueda (s)"
+                                stroke="#06b6d4"
+                                strokeWidth={3}
+                                name="Búsqueda"
+                            />
+
+                        </LineChart>
+
+                    </ResponsiveContainer>
+
+                    <p className="chart-description">
+                        Tiempo promedio empleado para recuperar las recomendaciones.
+                    </p>
 
                 </div>
 

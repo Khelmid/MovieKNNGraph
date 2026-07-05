@@ -2,49 +2,63 @@ function GraphLegend() {
 
     return (
 
-        <div className="graph-legend">
+        <section className="legend-section">
 
-            <div className="legend-item">
+            <h3 className="legend-title">
+                Leyenda del Grafo
+            </h3>
 
-                <span className="legend-node query"></span>
+            <div className="graph-legend">
 
-                <span>Query Movie</span>
+                <div className="legend-item">
+
+                    <span className="legend-dot selected"></span>
+
+                    <span>Película consultada</span>
+
+                </div>
+
+                <div className="legend-item">
+
+                    <span className="legend-dot neighbor"></span>
+
+                    <span>Películas similares</span>
+
+                </div>
+
+                <div className="legend-item">
+
+                    <span className="legend-dot high"></span>
+
+                    <span>Similitud alta (≥ 0.80)</span>
+
+                </div>
+
+                <div className="legend-item">
+
+                    <span className="legend-dot medium"></span>
+
+                    <span>Similitud media (0.60 – 0.80)</span>
+
+                </div>
+
+                <div className="legend-item">
+
+                    <span className="legend-dot low"></span>
+
+                    <span>Similitud baja (&lt; 0.60)</span>
+
+                </div>
 
             </div>
 
-            <div className="legend-item">
+            <p className="legend-description">
+                Los nodos representan películas y las aristas indican relaciones de similitud
+                semántica obtenidas mediante el algoritmo KNN. El color de las conexiones
+                refleja el nivel de similitud entre las películas.
+            </p>
 
-                <span className="legend-node similar"></span>
-
-                <span>Similar Movies</span>
-
-            </div>
-
-            <div className="legend-item">
-
-                <span className="legend-line high"></span>
-
-                <span>High Similarity</span>
-
-            </div>
-
-            <div className="legend-item">
-
-                <span className="legend-line medium"></span>
-
-                <span>Medium Similarity</span>
-
-            </div>
-
-            <div className="legend-item">
-
-                <span className="legend-line low"></span>
-
-                <span>Low Similarity</span>
-
-            </div>
-
-        </div>
+        </section>
 
     );
 
